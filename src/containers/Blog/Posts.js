@@ -12,6 +12,7 @@ class Posts extends Component {
     posts         : [],
     selectedPostId: null,
     error         : false,
+    loadedPosts   : null,
   };
   
   selectPost = (id) => {

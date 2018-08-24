@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
-import {Route, NavLink, Switch} from 'react-router-dom';
+import {Route, NavLink, Switch, Redirect} from 'react-router-dom';
 
 // import axios from 'axios';
 import './Blog.css';
 import Posts from './Posts';
-import NewPost from './NewPost';
-import FullPost from "./FullPost";
+// import NewPost from './NewPost';
+// import FullPost from "./FullPost";
 
-// const POSTS_PATH = 'https://jsonplaceholder.typicode.com/posts/';
+import asyncComponent from '../../hoc/asyncComponent';
+
+const asyncNewPost = asyncComponent(() => {
+  return import ('./NewPost');
+});
 
 class Blog extends Component {
   render () {
@@ -29,8 +33,9 @@ class Blog extends Component {
         
         {/*<Route exact path="/" render={() => <h1>Home</h1>} />*/}
         <Switch>
-          <Route path="/new-post" component={NewPost} />
+          <Route path='/new-post' component={asyncNewPost} />
           <Route path='/posts' component={Posts} />
+          <Redirect from='/' to='/posts' />
         </Switch>
       </div>
     )
